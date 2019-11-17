@@ -45,12 +45,13 @@ public class CreditsPanel extends JPanel {
 		back.addActionListener(new BackListener());
 		back.setBackground(Color.GRAY);
 		back.setForeground(Color.WHITE);
-		back.setFont(new Font("Serif", Font.PLAIN, 48));
+		back.setFont(new Font("Serif", Font.PLAIN, 20));
 		back.setHorizontalAlignment(SwingConstants.CENTER);
-		back.setBounds((this.width / 2) - (back.getPreferredSize().width / 2),
-								50,
+		back.setBounds((int)(this.width * 0.01) + (back.getPreferredSize().width / 2),
+					   (int)(this.height * 0.9) - (back.getPreferredSize().width / 2),
 								back.getPreferredSize().width,
 								back.getPreferredSize().height);
+		System.out.println((int)(this.height * 0.9) - (back.getPreferredSize().width / 2));
 		this.add(back);
 	}
 	
