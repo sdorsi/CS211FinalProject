@@ -1,0 +1,4 @@
+	As far as the game itself, we have set up an initial game menu section, as well as a few example scenes 
+ that the game can be implemented with. The subclasses for enemies have been completed except for their special abilities,
+and can be used in a game application to move and attack an object defined as a Player class. The next step will be created classes
+of allies for a player to use and bring all of these classes together to form an actual game.
