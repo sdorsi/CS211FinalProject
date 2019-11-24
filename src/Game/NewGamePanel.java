@@ -1,5 +1,8 @@
 package Game;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * @author Carson Forsyth
@@ -16,11 +20,12 @@ public class NewGamePanel extends JPanel {
 	private static final int numMaps = 1;
 	private static final String[] mapList = {"map1.png"};
 	private static final String[] mapDataList = {"map1Data.txt"};
-	private static final ImageIcon previousImg = new ImageIcon("Resources/Game Images/previous.png");
-	private static final ImageIcon nextImg = new ImageIcon("Resources/Game Images/next.png");
+	private static final ImageIcon previousImg = new ImageIcon("Resources/Game Images/Menu Items/previous.png");
+	private static final ImageIcon nextImg = new ImageIcon("Resources/Game Images/Menu Items/next.png");
+	private static final ImageIcon startImg = new ImageIcon("Resources/Game Images/Menu Items/start.png");
 	
 	private int width, height, mapIndex;
-	private JButton previous, next;
+	private JButton previous, next, start, back;
 	private JLabel currentMap;
 
 	public NewGamePanel(int width, int height) {
@@ -30,19 +35,43 @@ public class NewGamePanel extends JPanel {
 		
 		this.setLayout(null);
 		
-		this.previous = new JButton(new ImageIcon("Resources/Game Images/previous.png"));
+		this.previous = new JButton(previousImg);
 		this.previous.setBounds(20, 250, 100, 100);
+		this.previous.setContentAreaFilled(false);
+		this.previous.setBorder(null);
 		this.previous.addActionListener(new PreviousListener());
-		this.add(previous);
+		this.add(this.previous);
 		
-		this.next = new JButton(new ImageIcon("Resources/Game Images/next.png"));
+		this.next = new JButton(nextImg);
 		this.next.setBounds(580, 250, 100, 100);
+		this.next.setContentAreaFilled(false);
+		this.next.setBorder(null);
 		this.next.addActionListener(new NextListener());
-		this.add(next);
+		this.add(this.next);
 		
-		this.currentMap = new JLabel(new ImageIcon("Resources/Maps/map1.png"));
+		this.start = new JButton(startImg);
+		this.start.setBounds(300, 525, 100, 50);
+		this.start.setContentAreaFilled(false);
+		this.start.setBorder(null);
+		this.start.addActionListener(new StartListener());
+		this.add(this.start);
+		
+		ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[this.mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+		this.currentMap = new JLabel(scaled);
 		this.currentMap.setBounds(150, 100, 400, 400);
 		this.add(this.currentMap);
+		
+		back = new JButton("Back");
+		back.addActionListener(new BackListener());
+		back.setBackground(Color.GRAY);
+		back.setForeground(Color.WHITE);
+		back.setFont(new Font("Serif", Font.PLAIN, 20));
+		back.setHorizontalAlignment(SwingConstants.CENTER);
+		back.setBounds((int)(this.width * 0.01) + (back.getPreferredSize().width / 2),
+					   (int)(this.height * 0.9) - (back.getPreferredSize().width / 2),
+								back.getPreferredSize().width,
+								back.getPreferredSize().height);
+		this.add(back);
 	}
 	
 	private class PreviousListener implements ActionListener {
@@ -60,6 +89,19 @@ public class NewGamePanel extends JPanel {
 				mapIndex++;
 				currentMap.setIcon(new ImageIcon("Resources/Maps/map" + mapIndex + ".png"));
 			}
+		}
+	}
+	
+	private class StartListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Driver.map = mapList[mapIndex];
+			Driver.goToContinueGame();
+		}
+	}
+	
+	private class BackListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Driver.goToMainMenu();
 		}
 	}
 }
