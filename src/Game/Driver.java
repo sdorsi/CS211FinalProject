@@ -4,10 +4,10 @@ import javax.swing.JFrame;
 
 /**
  * @author Carson Forsyth
- * @version 11/17/19
+ * @version 11/28/19
  */
 public class Driver {
-	private static final int WIDTH = 700;
+	private static final int WIDTH = 900;
 	private static final int HEIGHT = 700;
 	private static JFrame frame;
 	public static String map = "";

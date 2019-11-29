@@ -17,9 +17,7 @@ import javax.swing.SwingConstants;
  * @version 11/18/19
  */
 public class NewGamePanel extends JPanel {
-	private static final int numMaps = 1;
-	private static final String[] mapList = {"map1.png"};
-	private static final String[] mapDataList = {"map1Data.txt"};
+	private static final String[] mapList = {"map1.png", "map2.png"};
 	private static final ImageIcon previousImg = new ImageIcon("Resources/Game Images/Menu Items/previous.png");
 	private static final ImageIcon nextImg = new ImageIcon("Resources/Game Images/Menu Items/next.png");
 	private static final ImageIcon startImg = new ImageIcon("Resources/Game Images/Menu Items/start.png");
@@ -78,7 +76,8 @@ public class NewGamePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex > 0) {
 				mapIndex--;
-				currentMap.setIcon(new ImageIcon("Resources/Maps/map" + mapIndex + ".png"));
+				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+				currentMap.setIcon(scaled);
 			}
 		}
 	}
@@ -87,14 +86,15 @@ public class NewGamePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex < mapList.length - 1) {
 				mapIndex++;
-				currentMap.setIcon(new ImageIcon("Resources/Maps/map" + mapIndex + ".png"));
+				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+				currentMap.setIcon(scaled);
 			}
 		}
 	}
 	
 	private class StartListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Driver.map = mapList[mapIndex];
+			Driver.map = mapList[mapIndex].substring(0, 4);
 			Driver.goToContinueGame();
 		}
 	}
