@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 
 /**
  * @author Carson Forsyth
- * @version 11/18/19
+ * @version 11/28/19
  */
 public class NewGamePanel extends JPanel {
 	private static final String[] mapList = {"map1.png", "map2.png"};
@@ -34,29 +34,29 @@ public class NewGamePanel extends JPanel {
 		this.setLayout(null);
 		
 		this.previous = new JButton(previousImg);
-		this.previous.setBounds(20, 250, 100, 100);
+		this.previous.setBounds(70, 250, 100, 100);
 		this.previous.setContentAreaFilled(false);
 		this.previous.setBorder(null);
 		this.previous.addActionListener(new PreviousListener());
 		this.add(this.previous);
 		
 		this.next = new JButton(nextImg);
-		this.next.setBounds(580, 250, 100, 100);
+		this.next.setBounds(730, 250, 100, 100);
 		this.next.setContentAreaFilled(false);
 		this.next.setBorder(null);
 		this.next.addActionListener(new NextListener());
 		this.add(this.next);
 		
 		this.start = new JButton(startImg);
-		this.start.setBounds(300, 525, 100, 50);
+		this.start.setBounds(400, 575, 100, 50);
 		this.start.setContentAreaFilled(false);
 		this.start.setBorder(null);
 		this.start.addActionListener(new StartListener());
 		this.add(this.start);
 		
-		ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[this.mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+		ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[this.mapIndex])).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
 		this.currentMap = new JLabel(scaled);
-		this.currentMap.setBounds(150, 100, 400, 400);
+		this.currentMap.setBounds(200, 50, 500, 500);
 		this.add(this.currentMap);
 		
 		back = new JButton("Back");
@@ -76,7 +76,7 @@ public class NewGamePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex > 0) {
 				mapIndex--;
-				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
 				currentMap.setIcon(scaled);
 			}
 		}
@@ -86,7 +86,7 @@ public class NewGamePanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex < mapList.length - 1) {
 				mapIndex++;
-				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+				ImageIcon scaled = new ImageIcon((new ImageIcon("Resources/Maps/" + mapList[mapIndex])).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
 				currentMap.setIcon(scaled);
 			}
 		}

@@ -8,13 +8,13 @@ import Game.Player;
 
 public class Brawler extends Enemy
 {
-	private static final ImageIcon img = new ImageIcon("Resources/brawler.jpg");
+	private static final ImageIcon img = new ImageIcon("Resources/Game Images/Enemies/brawler.png");
     /**
      * Constructor for objects of class Brawler
      */
     public Brawler(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,1,1,1,5, img, inTargets,inP);
+        super(x,y,1,2,1,5, inTargets,inP, img);
     }   
     
     public void ability()

@@ -8,11 +8,11 @@ import Game.Player;
 
 public class Dragon extends Enemy
 {
-	private static final ImageIcon img = new ImageIcon("Resources/dragon.jpg");
+	private static final ImageIcon img = new ImageIcon("Resources/Game Images/Enemies/dragon.png");
     int lastTarget;
     public Dragon(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,8,7,4,4, img, inTargets,inP);
+        super(x,y,8,7,4,4, inTargets,inP, img);
         lastTarget=inTargets.length-1;
         ability();//flies straight to player
     }   

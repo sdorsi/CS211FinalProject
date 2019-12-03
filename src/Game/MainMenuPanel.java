@@ -11,27 +11,15 @@ import javax.swing.SwingConstants;
 
 /**
  * @author Carson Forsyth
- * @version 11/17/19
+ * @version 11/29/19
  */
 public class MainMenuPanel extends JPanel {
 	private int width, height;
-	/* uncomment later for use
-	private Timer t;
-	private BufferedImage myImage;
-	private Graphics myBuffer;
-	*/
 	private JButton newGameButton, continueGameButton, creditsButton;
 	
 	public MainMenuPanel(int width, int height) {
 		this.width = width;
 		this.height = height;
-		
-		/* uncomment later for use
-		t = new Timer(0, new Listener());
-		myImage = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
-		myBuffer = myImage.getGraphics();
-		*/
-		
 		this.setBackground(Color.DARK_GRAY);
 		this.setLayout(null);
 		
@@ -70,8 +58,6 @@ public class MainMenuPanel extends JPanel {
 				creditsButton.getPreferredSize().width,
 				creditsButton.getPreferredSize().height);
 		this.add(creditsButton);
-		
-//		t.restart();
 	}
 	
 	private class NewGameListener implements ActionListener {
@@ -91,17 +77,4 @@ public class MainMenuPanel extends JPanel {
 			Driver.goToCredits();
 		}
 	}
-	
-	/* uncomment when images and other things that actually require graphics are used
-	private class Listener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			
-			repaint();
-		}
-	}
-	
-	public void paintComponent(Graphics g) {
-		myBuffer.drawImage(myImage, 0, 0, this.getWidth(), this.getHeight(), null);
-	}
-	*/
 }
