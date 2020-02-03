@@ -18,7 +18,7 @@ public class Thief extends Enemy
      */
     public Thief(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,2,2,6,8, inTargets,inP, img);
+        super(x,y,5,2,10,8, inTargets,inP, img);
         hasStolen=false;
         steal=false;
         targetX=(int)inTargets[inTargets.length-1].getX();

@@ -1,5 +1,6 @@
 package Enemies;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -24,6 +25,7 @@ public abstract class Enemy extends Thread
     private int attackCt;
     protected boolean attacking;
     private ImageIcon myImage;
+    private int maxLife;
     /**
      * Constructor for objects of class Enemy
      * 
@@ -37,6 +39,7 @@ public abstract class Enemy extends Thread
      */
     public Enemy(int x,int y,int inLife,int inDamage,int inSpeed,int inDps,Point[]inTargets, Player inP, ImageIcon img)
     {
+    	this.maxLife = inLife;
         locX=x;
         locY=y;
         life=inLife;
@@ -60,7 +63,8 @@ public abstract class Enemy extends Thread
         while(true){
             if(alive())
                 move();
-            ability();
+            if(!(this instanceof Dragon))
+            	ability();
             try{sleep(100);}catch(Exception e){}
         }
     }
@@ -92,7 +96,7 @@ public abstract class Enemy extends Thread
         boolean xReady=false,yReady=false;
 
         if(alive())
-        {
+        {	
             if(currTarget<targets.length && targets[currTarget]!=null)//if this has not hit all target nodes yet
             {
                 if(targets[currTarget].getX()-locX >4)
@@ -168,7 +172,9 @@ public abstract class Enemy extends Thread
     }
 
     public void draw(Graphics g) {
-    	g.drawImage(this.myImage.getImage(), this.locX - (WIDTH / 2), this.locY - (HEIGHT), WIDTH, HEIGHT, null);
+    	g.drawImage(this.myImage.getImage(), this.locX - (WIDTH / 2), this.locY - (HEIGHT / 2), WIDTH, HEIGHT, null);
+    	g.setColor(Color.RED);
+    	g.fillRect(this.locX - (WIDTH / 2), this.locY - (HEIGHT / 2) - 10, (int)(40 * ((double)this.life / this.maxLife)), 8);
     }
 
     public abstract void ability();

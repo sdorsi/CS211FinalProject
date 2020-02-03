@@ -10,15 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-/**
- * @author Carson Forsyth
- * @version 11/17/19
- */
 public class CreditsPanel extends JPanel {
 	private int width, height;
 	private JTextArea credits;
 	private JButton back;
 
+	/**
+	 * @param width width of the window in pixels
+	 * @param height height of the window in pixels
+	 */
 	public CreditsPanel(int width, int height) {
 		this.width = width;;
 		this.height = height;
@@ -31,15 +31,15 @@ public class CreditsPanel extends JPanel {
 		credits.setBackground(Color.GRAY);
 		credits.setForeground(Color.WHITE);
 		credits.setFont(new Font("Serif", Font.PLAIN, 20));
-		credits.setText("\t       Credits\n" +
+		credits.setText("\t\t       Credits\n" +
 						"\n" +
-						"Created by:\t\tSimon D'Orsi\n" +
-						"           \t\tCarson Forsyth\n" +
+						"\tCreated by:\t\tSimon D'Orsi\n" +
+						"           \t\t\tCarson Forsyth\n" +
 						"\n" +
-						"Created for CS 211-H01:\n" +
-						"Object Oriented Programming\n" +
-						"At George Mason University\n" + 
-						"For Professor Tessema Mengistu");
+						"\tCreated for CS 211-H01:\n" +
+						"\tObject Oriented Programming\n" +
+						"\tAt George Mason University\n" + 
+						"\tFor Professor Tessema Mengistu");
 
 		credits.setBounds(this.width / 10,
 						  this.height / 10,
@@ -57,10 +57,10 @@ public class CreditsPanel extends JPanel {
 					   (int)(this.height * 0.9) - (back.getPreferredSize().width / 2),
 								back.getPreferredSize().width,
 								back.getPreferredSize().height);
-		System.out.println((int)(this.height * 0.9) - (back.getPreferredSize().width / 2));
 		this.add(back);
 	}
 	
+	// listener for the back button
 	private class BackListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.goToMainMenu();

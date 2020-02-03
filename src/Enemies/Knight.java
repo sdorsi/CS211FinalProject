@@ -14,7 +14,7 @@ public class Knight extends Enemy
      */
     public Knight(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,3,3,3,6, inTargets,inP, img);
+        super(x,y,10,3,3,6, inTargets,inP, img);
     }   
     
     public void ability()

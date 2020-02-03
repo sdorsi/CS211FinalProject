@@ -29,10 +29,6 @@ import Enemies.Enemy;
 import Enemies.Knight;
 import Enemies.Thief;
 
-/**
- * @author Carson Forsyth
- * @version 11/29/19
- */
 public class GamePanel extends JPanel {
 	private static final ImageIcon START_IMG = new ImageIcon("Resources/Game Images/Menu Items/start.png");
 	private static final ImageIcon GUARD_IMG = new ImageIcon("Resources/Game Images/Troops/guard.png");
@@ -49,8 +45,14 @@ public class GamePanel extends JPanel {
 	private Polygon[] noGoZones;
 	private GameActions clickAction;
 	private Player player;
+	private Graphics myBuffer;
 	private int wave;
-
+	
+	/**
+	 * @param width width of the window in pixels
+	 * @param height height of the window in pixels
+	 * @param map name of the map
+	 */
 	public GamePanel(int width, int height, String map) {
  		this.clickAction = GameActions.NONE;
 		this.troops = new ArrayList<Troop>();
@@ -123,6 +125,16 @@ public class GamePanel extends JPanel {
 		wizard.addActionListener(new WizardListener());
 		troopBar.add(wizard);
 		
+		JPanel costs = new JPanel();
+		costs.setLayout(new GridLayout(6, 1));
+		costs.add(new JLabel("Cost"));
+		costs.add(new JLabel("Guard: 100"));
+		costs.add(new JLabel("Archer: 200"));
+		costs.add(new JLabel("Executioner: 300"));
+		costs.add(new JLabel("Catapult: 500"));
+		costs.add(new JLabel("Wizard: 1000"));
+		troopBar.add(costs);
+		
 		toolBar.add(troopBar, BorderLayout.CENTER);
 		
 		this.add(this.toolBar);
@@ -138,6 +150,7 @@ public class GamePanel extends JPanel {
 		waveLabel.setText("Wave: " + (this.wave));
 	}
 	
+	// listener for the start button
 	private class StartListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			start.setEnabled(false);
@@ -149,30 +162,35 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
+	// listener for the guard button
 	private class GuardListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(player.canBuyGuard())
 				clickAction = GameActions.GUARD_SELECTED;
 		}
 	}
+	// listener for the archer button
 	private class ArcherListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(player.canBuyArcher())
 				clickAction = GameActions.ARCHER_SELECTED;
 		}
 	}
+	// listener for the executioner button
 	private class ExecutionerListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(player.canBuyExecutioner())
 				clickAction = GameActions.EXECUTIONER_SELECTED;
 		}
 	}
+	//listener for the catapult button
 	private class CatapultListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(player.canBuyCatapult())
 				clickAction = GameActions.CATAPULT_SELECTED;
 		}
 	}
+	// listener for the wizard button
 	private class WizardListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(player.canBuyWizard())
@@ -180,45 +198,57 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
+	// listener for mouse interactions
 	private class MouseActionListener implements MouseListener {
 		public void mouseClicked(MouseEvent me) {
 			Point point = me.getPoint();
 			if(isValidPlacementLocation(point)) {
+				// places a guard
 				if(clickAction == GameActions.GUARD_SELECTED) {
 					Troop g = new Troop(new Point(point.x - (Troop.getWidth() / 2), point.y - (Troop.getHeight() / 2)), 1);
 					troops.add(g);
+					g.draw(myBuffer);
 					player.setMoney(player.getMoney() - Player.GUARD_COST);
 					updateMoneyLabel();
 					clickAction = GameActions.NONE;
 				}
+				// places an archer
 				else if(clickAction == GameActions.ARCHER_SELECTED) {
 					Troop a = new Troop(new Point(point.x - (Troop.getWidth() / 2), point.y - (Troop.getHeight() / 2)), 2);
 					troops.add(a);
+					a.draw(myBuffer);
 					player.setMoney(player.getMoney() - Player.ARCHER_COST);
 					updateMoneyLabel();
 					clickAction = GameActions.NONE;
 				}
+				// places an executioner
 				else if(clickAction == GameActions.EXECUTIONER_SELECTED) {
 					Troop e = new Troop(new Point(point.x - (Troop.getWidth() / 2), point.y - (Troop.getHeight() / 2)), 3);
 					troops.add(e);
+					e.draw(myBuffer);
 					player.setMoney(player.getMoney() - Player.EXECUTION_COST);
 					updateMoneyLabel();
 					clickAction = GameActions.NONE;
 				}
+				// places a catapult
 				else if(clickAction == GameActions.CATAPULT_SELECTED) {
 					Troop c = new Troop(new Point(point.x - (Troop.getWidth() / 2), point.y - (Troop.getHeight() / 2)), 4);
 					troops.add(c);
+					c.draw(myBuffer);
 					player.setMoney(player.getMoney() - Player.CATAPULT_COST);
 					updateMoneyLabel();
 					clickAction = GameActions.NONE;
 				}
+				// places a wizard
 				else if(clickAction == GameActions.WIZARD_SELECTED) {
 					Troop w = new Troop(new Point(point.x - (Troop.getWidth() / 2), point.y - (Troop.getHeight() / 2)), 5);
 					troops.add(w);
+					w.draw(myBuffer);
 					player.setMoney(player.getMoney() - Player.WIZARD_COST);
 					updateMoneyLabel();
 					clickAction = GameActions.NONE;
 				}
+				repaint();
 			}
 		}
 
@@ -228,6 +258,7 @@ public class GamePanel extends JPanel {
 		public void mouseExited(MouseEvent e) {}
 	}
 	
+	// checks if the troop can be placed in the clicked spot
 	private boolean isValidPlacementLocation(Point player) {
 		for(Polygon poly : this.noGoZones) {
 			if(poly.intersects(new Rectangle(player.x - (Troop.getWidth() / 2), player.y - (Troop.getHeight() / 2), Troop.getWidth(), Troop.getWidth()))) {
@@ -262,11 +293,15 @@ public class GamePanel extends JPanel {
 		private int width, height, enemySpawnIndex;
 		private String map;
 		private BufferedImage myImage;
-		private Graphics myBuffer;
 		private Timer mainGameTimer, enemySpawnTimer;
 		private ArrayList<Enemy> enemies;
 		private Point[] path;
 		
+		/**
+		 * @param width width of the window in pixels
+		 * @param height height of the window in pixels
+		 * @param map naem of the map
+		 */
 		public GameFieldPanel(int width, int height, String map) {
 			this.width = width;
 			this.height = height;
@@ -310,6 +345,7 @@ public class GamePanel extends JPanel {
 			return false;
 		}
 		
+		// listener that takes care of all the main actions in the game
 		private class mainGameListener implements ActionListener {
 			public void actionPerformed(ActionEvent ae) {
 				myBuffer.drawImage(new ImageIcon("Resources/Maps/" + map).getImage(), 0, 0, width, height, null);
@@ -396,6 +432,7 @@ public class GamePanel extends JPanel {
 			}
 		}
 		
+		// listener to spawn enemies
 		private class EnemySpawnListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if(enemySpawnIndex < Waves.waves[wave - 1].length) {
@@ -433,6 +470,7 @@ public class GamePanel extends JPanel {
 			}
 		}
 		
+		// paints the images to the screen
 		public void paintComponent(Graphics g) {
 			g.drawImage(myImage, 0, 0, this.getWidth(), this.getHeight(), null);
 		}

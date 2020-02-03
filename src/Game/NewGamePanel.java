@@ -12,10 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-/**
- * @author Carson Forsyth
- * @version 11/28/19
- */
 public class NewGamePanel extends JPanel {
 	private static final String[] mapList = {"map1.png", "map2.png"};
 	private static final ImageIcon previousImg = new ImageIcon("Resources/Game Images/Menu Items/previous.png");
@@ -26,6 +22,10 @@ public class NewGamePanel extends JPanel {
 	private JButton previous, next, start, back;
 	private JLabel currentMap;
 
+	/**
+	 * @param width the size in pixels
+	 * @param height the size in pixels
+	 */
 	public NewGamePanel(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -72,6 +72,7 @@ public class NewGamePanel extends JPanel {
 		this.add(back);
 	}
 	
+	// listener for the previous button
 	private class PreviousListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex > 0) {
@@ -82,6 +83,7 @@ public class NewGamePanel extends JPanel {
 		}
 	}
 	
+	// listener for the next button
 	private class NextListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if(mapIndex < mapList.length - 1) {
@@ -92,6 +94,7 @@ public class NewGamePanel extends JPanel {
 		}
 	}
 	
+	// listener for the start button
 	private class StartListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.map = mapList[mapIndex].substring(0, 4);
@@ -99,6 +102,7 @@ public class NewGamePanel extends JPanel {
 		}
 	}
 	
+	// listener for the back button
 	private class BackListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.goToMainMenu();

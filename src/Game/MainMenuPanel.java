@@ -9,14 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-/**
- * @author Carson Forsyth
- * @version 11/29/19
- */
 public class MainMenuPanel extends JPanel {
 	private int width, height;
 	private JButton newGameButton, continueGameButton, creditsButton;
 	
+	/**
+	 * @param width width of frame in pixels
+	 * @param height height of frame in pixels
+	 */
 	public MainMenuPanel(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -29,10 +29,14 @@ public class MainMenuPanel extends JPanel {
 		newGameButton.setForeground(Color.WHITE);
 		newGameButton.setFont(new Font("Serif", Font.PLAIN, 48));
 		newGameButton.setHorizontalAlignment(SwingConstants.CENTER);
+//		newGameButton.setBounds((this.width / 2) - (newGameButton.getPreferredSize().width / 2),
+//								50,
+//								newGameButton.getPreferredSize().width,
+//								newGameButton.getPreferredSize().height);
 		newGameButton.setBounds((this.width / 2) - (newGameButton.getPreferredSize().width / 2),
-								50,
-								newGameButton.getPreferredSize().width,
-								newGameButton.getPreferredSize().height);
+				150,
+				newGameButton.getPreferredSize().width,
+				newGameButton.getPreferredSize().height);
 		this.add(newGameButton);
 		
 		continueGameButton = new JButton("Continue Game");
@@ -45,7 +49,7 @@ public class MainMenuPanel extends JPanel {
 				150,
 				continueGameButton.getPreferredSize().width,
 				continueGameButton.getPreferredSize().height);
-		this.add(continueGameButton);
+//		this.add(continueGameButton);
 		
 		creditsButton = new JButton("Credits");
 		creditsButton.addActionListener(new CreditsListener());
@@ -60,18 +64,21 @@ public class MainMenuPanel extends JPanel {
 		this.add(creditsButton);
 	}
 	
+	// listener for the new game button
 	private class NewGameListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.goToNewGame();
 		}
 	}
 	
+	// listener for the continue game button
 	private class ContinueGameListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.goToContinueGame();
 		}
 	}
 	
+	// listener for the credits button
 	private class CreditsListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Driver.goToCredits();

@@ -14,7 +14,7 @@ public class Brawler extends Enemy
      */
     public Brawler(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,1,2,1,5, inTargets,inP, img);
+        super(x,y,3,2,1,5, inTargets,inP, img);
     }   
     
     public void ability()

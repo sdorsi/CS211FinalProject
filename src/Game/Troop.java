@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -61,47 +62,47 @@ public class Troop
     	case 1:
     		return 1;
     	case 2:
-    		return 1;
+    		return 2;
     	case 3:
-    		return 1;
+    		return 4;
     	case 4:
-    		return 1;
+    		return 4;
     	case 5:
-    		return 1;
+    		return 5;
     	}
-    	return 1;
+    	return -1;
     }
     
     private static int getRadiusFromType(int type) {
     	switch(type) {
     	case 1:
-    		return 60;
+    		return 75;
     	case 2:
-    		return 200;
+    		return 100;
     	case 3:
-    		return 60;
+    		return 30;
     	case 4:
-    		return 60;
+    		return 150;
     	case 5:
-    		return 60;
+    		return 100;
     	}
-    	return 60;
+    	return -1;
     }
     
     private static int getDelayFromType(int type) {
     	switch(type) {
     	case 1:
-    		return 120;
+    		return 300;
     	case 2:
-    		return 200;
+    		return 300;
     	case 3:
-    		return 120;
+    		return 600;
     	case 4:
-    		return 120;
+    		return 600;
     	case 5:
-    		return 120;
+    		return 400;
     	}
-    	return 120;
+    	return -1;
     }
     
     public static int getWidth() {
@@ -178,5 +179,8 @@ public class Troop
     		System.out.println("default");
     		break;
     	}
+    	
+    	g.setColor(Color.WHITE);
+    	g.drawRect(this.x + (WIDTH / 2) - this.radius, this.y + (HEIGHT / 2) - this.radius, this.radius * 2, this.radius * 2);
     }
 }

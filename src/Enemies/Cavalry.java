@@ -14,7 +14,7 @@ public class Cavalry extends Enemy
      */
     public Cavalry(int x, int y, Point[]inTargets,Player inP)
     {
-        super(x,y,5,5,8,3, inTargets,inP, img);
+        super(x,y,25,5,8,3, inTargets,inP, img);
     }   
     
     public void ability()
